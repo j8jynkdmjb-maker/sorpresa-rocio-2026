@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una sorpresa para Rocío ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: #633047;
+  background: linear-gradient(135deg, #fff0f5, #f8bbd0);
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  padding: 25px 20px;
+  background: #fffafd;
+  border: 2px solid #f4b7ca;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px #b85b7b30;
+}
+
+h1, h2 {
+  color: #c2185b;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 16px;
+  margin: 6px;
+  background: #c2185b;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.secondary {
+  background: #f7c5d7;
+  color: #633047;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  border: 2px solid #efb2c7;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.choices {
+  display: grid;
+  gap: 9px;
+  margin: 15px 0;
+}
+
+.choice {
+  width: 100%;
+  text-align: left;
+  background: #fff0f5;
+  color: #633047;
+  border: 1px solid #f2bfd0;
+}
+
+.message {
+  text-align: left;
+  background: #fff0f5;
+  padding: 16px;
+  border-radius: 15px;
+  line-height: 1.7;
+}
+
+.hearts {
+  font-size: 1.5rem;
+  margin: 10px;
+}
+
+.result {
+  color: #c2185b;
+  font-weight: bold;
+}
+
+.fecha {
+  margin-top: 22px;
+  padding: 20px 12px;
+  border: 2px dashed #e78eaf;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff0f5, #ffe0eb);
+}
+
+.fecha h2 {
+  font-size: 1.6rem;
+  margin: 12px 0;
+}
+
+.calendario {
+  font-size: 2.5rem;
+}
+</style>
+</head>
+
+<body>
+<main class="card">
+
+<section id="welcome" class="screen active">
+  <div class="hearts">🌷 💗 🌷</div>
+  <h1>Una misión especial</h1>
+  <p>Preparé una aventura para alguien muy especial... ❤️</p>
+
+  <label for="nombre">¿Cómo se llama mi aventurera?</label>
+  <input id="nombre" placeholder="Escribí tu nombre acá" maxlength="40">
+
+  <button onclick="empezar()">¡Empezar la aventura! 💖</button>
+</section>
+
+<section id="mision" class="screen">
+  <div class="hearts">💌 ✨ 💌</div>
+  <h2 id="saludo"></h2>
+  <p>Tenés una misión: responder unas preguntas y elegir una idea para nuestra próxima salida. ¿Aceptás?</p>
+
+  <button onclick="mostrar('preguntas')">¡Acepto! 💗</button>
+  <button class="secondary" onclick="noAceptar()">No acepto 🙈</button>
+
+  <p id="broma" class="result"></p>
+</section>
+
+<section id="preguntas" class="screen">
+  <div class="hearts">💕</div>
+  <h2 id="tituloPregunta"></h2>
+  <p id="pregunta"></p>
+  <div id="respuestas" class="choices"></div>
+  <p id="resultado" class="result"></p>
+
+  <button id="siguiente" style="display:none" onclick="siguiente()">Continuar 💗</button>
+</section>
+
+<section id="comida" class="screen">
+  <div class="hearts">🍕 🍝 🍔</div>
+  <h2>¡Elegí nuestra cena!</h2>
+  <p>¿Qué te gustaría comer en nuestra próxima salida? ❤️</p>
+  <div id="comidas" class="choices"></div>
+</section>
+
+<section id="lugares" class="screen">
+  <div class="hearts">📍 💗 📍</div>
+  <h2 id="tituloLugar">¡Elegí el lugar!</h2>
+  <p>¿Cuál te gusta más?</p>
+  <div id="opcionesLugar" class="choices"></div>
+
+  <button class="secondary" onclick="mostrar('comida')">Volver</button>
+</section>
+
+<section id="final" class="screen">
+  <div class="hearts">🌷 💖 🌷</div>
+  <h1>¡FELICES 6 MESES, MI AMOR! ❤️</h1>
+
+  <div class="message">
+    <p>Mi vida, sé que todavía faltan unos días para cumplir nuestros seis meses, pero mi ansiedad me gana y no podía esperar para prepararte esta pequeña sorpresa. ❤️🥹</p>
+
+    <p>Gracias por estos seis meses tan hermosos a tu lado. ❤️</p>
+
+    <p>Deseo de todo corazón que seas eternamente feliz, que nunca te falten motivos para sonreír y que jamás borres esa sonrisa hermosa que tenés, porque es una de las cosas más lindas de mi vida.</p>
+
+    <p>Ojalá nos queden muchísimos meses más, miles de recuerdos por crear, aventuras por vivir y momentos en los que podamos mirarnos y sentir la misma felicidad que sentimos hoy.</p>
+
+    <p>Gracias por ser vos, por compartir tu vida conmigo y por hacer que estos seis meses sean tan especiales.</p>
+
+    <p>Te amo muchísimo, mi amor. Por estos seis meses y por todos los que nos esperan. ❤️</p>
+
+    <p><strong>Con todo mi amor, para vos. ❤️</strong></p>
+  </div>
+
+  <div class="fecha">
+    <div class="calendario">💌 🗓️ 💗</div>
+    <h2>¡TENEMOS UNA CITA, MI AMOR!</h2>
+
+    <p id="mensajeFecha"></p>
+
+    <p>Ahora ya tenemos la comida y el lugar… ¡solo falta que llegue el día! 🥹💕</p>
+
+    <h2>21 DE OCTUBRE DE 2026 ❤️</h2>
+
+    <p>Reservá ese día para nosotros, mi vida. Quiero seguir creando recuerdos hermosos a tu lado.</p>
+
+    <p><strong>¡Nuestra próxima aventura juntos! 🌹</strong></p>
+  </div>
+
+  <button onclick="document.getElementById('amor').textContent='Te amo muchísimo, mi vida. Por todos nuestros momentos juntos. ❤️🥹'">Te amo ❤️</button>
+
+  <p id="amor" class="result"></p>
+</section>
+
+</main>
+
+<script>
+const preguntas = [
+  {
+    q: "¿Dónde fue nuestro primer beso?",
+    o: ["En el cine", "En una plaza", "En casa", "En un restaurante"],
+    c: 2
+  },
+  {
+    q: "¿Cuánto tardaste en decirme que sí para que fuera a visitarte?",
+    o: ["Unas horas", "2 días", "Una semana", "Un mes"],
+    c: 1
+  },
+  {
+    q: "¿Qué comimos en nuestra segunda cena?",
+    o: ["Hamburguesas", "Pastas", "Pizza", "Milanesas"],
+    c: 2
+  }
+];
+
+const comidas = [
+  "Pizza 🍕",
+  "Hamburguesas 🍔",
+  "Pastas 🍝",
+  "Milanesas 🥩",
+  "Algo para compartir 🧀"
+];
+
+const lugares = [
+  [
+    "Copetín — Villa Devoto",
+    "Blondie Resto Bar — Villa Devoto",
+    "Il Bruno — Caballito"
+  ],
+  [
+    "Gordis Burger — Palermo",
+    "Frank's Grill — Colegiales",
+    "What The Burger — Belgrano"
+  ],
+  [
+    "Blondie Resto Bar — Villa Devoto",
+    "Monti Bar de Pastas — Caballito",
+    "Il Bruno — Caballito"
+  ],
+  [
+    "Blondie Resto Bar — Villa Devoto",
+    "Bodegón La Morocha — Caballito",
+    "Bodegón Sahores — Villa del Parque"
+  ],
+  [
+    "Roncesvalles — Villa del Parque",
+    "Copetín — Villa Devoto",
+    "Bodegón Sahores — Villa del Parque"
+  ]
+];
+
+let nombre = "";
+let indice = 0;
+let comidaElegida = 0;
+
+function mostrar(id) {
+  document.querySelectorAll(".screen").forEach(s => {
+    s.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function empezar() {
+  nombre = document.getElementById("nombre").value.trim();
+
+  if (!nombre) {
+    alert("¡Primero escribí tu nombre! ❤️");
+    return;
+  }
+
+  document.getElementById("saludo").textContent = "¡Hola, " + nombre + "! 💖";
+  mostrar("mision");
+}
+
+function noAceptar() {
+  document.getElementById("broma").textContent =
+    "¡Esa opción no funciona! 😂 Tu misión te está esperando.";
+}
+
+function dibujarPregunta() {
+  const p = preguntas[indice];
+
+  document.getElementById("tituloPregunta").textContent =
+    "Pregunta " + (indice + 1) + " de " + preguntas.length;
+
+  document.getElementById("pregunta").textContent = p.q;
+  document.getElementById("resultado").textContent = "";
+  document.getElementById("siguiente").style.display = "none";
+
+  const caja = document.getElementById("respuestas");
+  caja.innerHTML = "";
+
+  p.o.forEach((opcion, i) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = (i + 1) + ". " + opcion;
+
+    b.onclick = () => {
+      document.querySelectorAll("#respuestas button").forEach(x => {
+        x.disabled = true;
+      });
+
+      document.getElementById("resultado").textContent =
+        i === p.c
+          ? "¡Correcto! 🥹❤️"
+          : "¡Casi! La respuesta era: " + p.o[p.c] + " 💗";
+
+      document.getElementById("siguiente").style.display = "inline-block";
+    };
+
+    caja.appendChild(b);
+  });
+}
+
+function siguiente() {
+  indice++;
+
+  if (indice < preguntas.length) {
+    dibujarPregunta();
+    return;
+  }
+
+  dibujarComidas();
+  mostrar("comida");
+}
+
+function dibujarComidas() {
+  const caja = document.getElementById("comidas");
+  caja.innerHTML = "";
+
+  comidas.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = c;
+
+    b.onclick = () => {
+      comidaElegida = i;
+      dibujarLugares();
+      mostrar("lugares");
+    };
+
+    caja.appendChild(b);
+  });
+}
+
+function dibujarLugares() {
+  document.getElementById("tituloLugar").textContent =
+    "¡" + comidas[comidaElegida] + "! 💗";
+
+  const caja = document.getElementById("opcionesLugar");
+  caja.innerHTML = "";
+
+  lugares[comidaElegida].forEach(l => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = l;
+
+    b.onclick = () => {
+      caja.innerHTML = "";
+
+      document.getElementById("tituloLugar").textContent =
+        "¡Tenemos un plan! ❤️";
+
+      const p = document.createElement("p");
+
+      p.textContent =
+        nombre + ", ya tenemos una idea para nuestra salida: " +
+        comidas[comidaElegida] + " en " + l + " ❤️";
+
+      caja.appendChild(p);
+
+      const fin = document.createElement("button");
+      fin.textContent = "Ver mi sorpresa 💌";
+
+      fin.onclick = () => {
+        document.getElementById("mensajeFecha").textContent =
+          "¡" + nombre + ", elegiste " + comidas[comidaElegida] +
+          " y " + l + "! ¡Ahora tenemos una cita! ❤️";
+
+        mostrar("final");
+      };
+
+      caja.appendChild(fin);
+    };
+
+    caja.appendChild(b);
+  });
+}
+
+dibujarPregunta();
+dibujarComidas();
+</script>
+</body>
+</html>
